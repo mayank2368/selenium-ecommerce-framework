@@ -13,18 +13,24 @@ public class LoginTest extends BaseTest {
 	@Test
 	public void endToEndTest() {
 
+		// Login
 		LoginPage loginPage = new LoginPage(driver);
+
 		loginPage.login("standard_user", "secret_sauce");
 
+		// Product page
 		ProductPage productPage = new ProductPage(driver);
-		productPage.addBackpackToCart();
+
+		productPage.addProductToCart("Sauce Labs Backpack");
 
 		productPage.goToCart();
 
+		// Cart page
 		CartPage cartPage = new CartPage(driver);
 
 		String actualProduct = cartPage.getProductName();
 
+		// Validation
 		Assert.assertEquals(actualProduct, "Sauce Labs Backpack", "Product not added correctly!");
 	}
 }

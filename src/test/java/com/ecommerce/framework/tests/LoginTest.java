@@ -1,23 +1,30 @@
 package com.ecommerce.framework.tests;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import com.ecommerce.framework.base.BaseTest;
+import com.ecommerce.framework.pages.CartPage;
+import com.ecommerce.framework.pages.LoginPage;
+import com.ecommerce.framework.pages.ProductPage;
 
-public class LoginTest {
+public class LoginTest extends BaseTest {
 
 	@Test
-	public void launchSite() {
+	public void endToEndTest() {
 
-		WebDriverManager.chromedriver().setup();
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.login("standard_user", "secret_sauce");
 
-		WebDriver driver = new ChromeDriver();
-		driver.get("https://www.saucedemo.com");
+		ProductPage productPage = new ProductPage(driver);
+		productPage.addBackpackToCart();
 
-		System.out.println("Title: " + driver.getTitle());
+		productPage.goToCart();
 
-		driver.quit();
+		CartPage cartPage = new CartPage(driver);
+
+		String actualProduct = cartPage.getProductName();
+
+		Assert.assertEquals(actualProduct, "Sauce Labs Backpack", "Product not added correctly!");
 	}
 }

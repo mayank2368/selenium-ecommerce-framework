@@ -12,12 +12,13 @@ public class BaseTest {
 
 	@BeforeMethod
 	public void setUp() {
+
 		driver = DriverFactory.initDriver();
 		driver.get(ConfigReader.getProperty("url"));
 	}
 
 	@AfterMethod
 	public void tearDown() {
-		driver.quit();
+		// driver.quit();
 	}
 }

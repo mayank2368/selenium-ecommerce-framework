@@ -3,8 +3,8 @@
 
 
 <suite name="E-Commerce Test Suite"
-       parallel="tests"
-       thread-count="2">
+       parallel="false"
+       thread-count="1">
 
     <test name="Chrome Tests">
 

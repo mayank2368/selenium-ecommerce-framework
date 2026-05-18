@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import com.ecommerce.framework.base.BaseTest;
 import com.ecommerce.framework.pages.CartPage;
+import com.ecommerce.framework.pages.CheckoutPage;
 import com.ecommerce.framework.pages.LoginPage;
 import com.ecommerce.framework.pages.ProductPage;
 
@@ -42,6 +43,17 @@ public class LoginTest extends BaseTest {
 		Assert.assertEquals(actualProduct, "Sauce Labs Backpack", "Product not added correctly!");
 
 		System.out.println("Product added successfully");
+
+		// Checkout page
+		CheckoutPage checkoutPage = new CheckoutPage(driver);
+
+		checkoutPage.completeCheckout("Mayank", "Parvatia", "12345");
+
+		String successText = checkoutPage.getSuccessMessage();
+
+		Assert.assertEquals(successText, "Thank you for your order!", "Order placement failed!");
+
+		System.out.println("Order placed successfully");
 	}
 
 	public void waitForDemo() {

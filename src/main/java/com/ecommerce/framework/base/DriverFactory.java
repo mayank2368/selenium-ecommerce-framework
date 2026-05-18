@@ -2,8 +2,10 @@ package com.ecommerce.framework.base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 
 import com.ecommerce.framework.utils.ConfigReader;
@@ -23,7 +25,18 @@ public class DriverFactory {
 
 			WebDriverManager.chromedriver().setup();
 
-			driver = new ChromeDriver();
+			ChromeOptions options = new ChromeOptions();
+
+			String headless = ConfigReader.getProperty("headless");
+
+			if (headless.equalsIgnoreCase("true")) {
+
+				options.addArguments("--headless=new");
+
+				options.addArguments("--window-size=1920,1080");
+			}
+
+			driver = new ChromeDriver(options);
 		}
 
 		// Firefox
@@ -31,7 +44,16 @@ public class DriverFactory {
 
 			WebDriverManager.firefoxdriver().setup();
 
-			driver = new FirefoxDriver();
+			FirefoxOptions options = new FirefoxOptions();
+
+			String headless = ConfigReader.getProperty("headless");
+
+			if (headless.equalsIgnoreCase("true")) {
+
+				options.addArguments("-headless");
+			}
+
+			driver = new FirefoxDriver(options);
 		}
 
 		// Edge

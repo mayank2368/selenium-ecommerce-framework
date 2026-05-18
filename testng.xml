@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<suite name="E-Commerce Test Suite"
+       parallel="tests"
+       thread-count="2">
+
+    <test name="Chrome Tests">
+
+        <classes>
+
+            <class name=
+            "com.ecommerce.framework.tests.LoginTest"/>
+            
+             <class name=
+    "com.ecommerce.framework.tests.CartTest"/>
+
+        </classes>
+
+    </test>
+
+</suite>

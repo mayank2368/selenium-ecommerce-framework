@@ -1,5 +1,6 @@
 package com.ecommerce.framework.pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -51,7 +52,15 @@ public class CheckoutPage {
 	// Checkout flow
 	public void completeCheckout(String fName, String lName, String zip) {
 
+		wait.waitForElementToBeVisible(checkoutBtn);
+
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+
+		js.executeScript("arguments[0].scrollIntoView(true);", checkoutBtn);
+
 		wait.waitForElementToBeClickable(checkoutBtn);
+
+		wait.addDelay(2000);
 
 		checkoutBtn.click();
 

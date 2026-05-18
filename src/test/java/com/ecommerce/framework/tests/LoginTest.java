@@ -47,7 +47,7 @@ public class LoginTest extends BaseTest {
 		// Checkout page
 		CheckoutPage checkoutPage = new CheckoutPage(driver);
 
-		checkoutPage.completeCheckout("Mayank", "Parvatia", "12345");
+		checkoutPage.completeCheckout("Mayank", "Parvati", "12345");
 
 		String successText = checkoutPage.getSuccessMessage();
 

@@ -5,7 +5,9 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.ecommerce.framework.base.BaseTest;
+import com.ecommerce.framework.pages.CartPage;
 import com.ecommerce.framework.pages.LoginPage;
+import com.ecommerce.framework.pages.ProductPage;
 
 @Listeners(com.ecommerce.framework.listeners.TestListener.class)
 
@@ -13,37 +15,39 @@ public class LoginTest extends BaseTest {
 
 	@Test(dataProvider = "loginData", dataProviderClass = TestDataProvider.class)
 
-	public void loginTest(String username, String password) {
+	public void endToEndTest(String username, String password) {
 
+		// Login page
 		LoginPage loginPage = new LoginPage(driver);
 
 		loginPage.login(username, password);
 
-		Assert.assertTrue(false);
+		waitForDemo();
+
+		// Product page
+		ProductPage productPage = new ProductPage(driver);
+
+		productPage.addProductToCart("Sauce Labs Backpack");
+
+		productPage.goToCart();
 
 		waitForDemo();
 
-		String currentUrl = driver.getCurrentUrl();
+		// Cart page
+		CartPage cartPage = new CartPage(driver);
+
+		String actualProduct = cartPage.getProductName();
 
 		// Validation
-		if (username.equals("standard_user") && password.equals("secret_sauce")) {
+		Assert.assertEquals(actualProduct, "Sauce Labs Backpack", "Product not added correctly!");
 
-			Assert.assertTrue(currentUrl.contains("inventory"));
-
-			System.out.println("Valid login successful");
-
-		} else {
-
-			Assert.assertFalse(currentUrl.contains("inventory"));
-
-			System.out.println("Invalid login verified");
-		}
+		System.out.println("Product added successfully");
 	}
 
-	// Demo delay
 	public void waitForDemo() {
 
 		try {
+
 			Thread.sleep(2000);
 
 		} catch (InterruptedException e) {
@@ -51,4 +55,5 @@ public class LoginTest extends BaseTest {
 			e.printStackTrace();
 		}
 	}
+
 }

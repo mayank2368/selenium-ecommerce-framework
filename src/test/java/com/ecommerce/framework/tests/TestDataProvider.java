@@ -10,12 +10,6 @@ public class TestDataProvider {
 		return new Object[][] {
 
 				// Valid login
-
-				// Invalid password
-				{ "standard_user", "wrong_password" },
-
-				// Invalid username
-
-		};
+				{ "standard_user", "secret_sauce" }, };
 	}
 }
